@@ -1,0 +1,11 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+
+<div>
+    {{ results | safe}}
+</div>
+
+<button class="btn btn-default"><a href="{{ string_link }}">STRING search</a></button>
+
+{% endblock %}

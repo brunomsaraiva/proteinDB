@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h1>PKD</h1>
+    <p class="lead">Protein Knowledge Database -  a database of protein changes associated with specific pathologies and the change of their expression in the different biofluids.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Search Protein</h2>
+        <form action="{{ url_for('query_protein') }}">
+            Protein name:<br>
+            <input type="text" name="proteinName"><br>
+            <input type="submit" value="Search"><br>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h2>Search Pathology</h2>
+        <form action="{{ url_for('query_pathology') }}">
+            Pathology name:<br>
+            <div style="position:relative;width:200px;height:25px;border:0;padding:0;margin:0;">
+                <select style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('displayValue').value=this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;">
+                    <option></option>
+                    {% for pathology in unique_pathologies %}
+                        <option> {{pathology}} </option>
+                    {% endfor %}
+                </select>
+                <input name="pathologyName" placeholder="add/select a value" id="displayValue" style="position:absolute;top:0px;left:0px;width:183px;width:180px\9;#width:180px;height:23px; height:21px\9;#height:18px;border:1px solid #556;" onfocus="this.select()" type="text"><br>
+            </div>
+            Variation:<br>
+            <select name="concVar" class="form-control">
+                <option value="Any">Any</option>
+                <option value="higher">+</option>
+                <option value="lower">-</option>
+            </select><br>
+            
+            <input type="submit" value="Search">
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h2>Search Biofluid</h2>
+        <form action="{{ url_for('query_biofluid') }}">
+        Biofluid name:<br>
+        <div style="position:relative;width:200px;height:25px;border:0;padding:0;margin:0;">
+            <select style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('biofluidValue').value=this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;">
+                <option></option>
+                {% for biofluid in unique_biofluids %}
+                    <option> {{biofluid}} </option>
+                {% endfor %}
+            </select>
+            <input name="biofluidName" placeholder="add/select a value" id="biofluidValue" style="position:absolute;top:0px;left:0px;width:183px;width:180px\9;#width:180px;height:23px; height:21px\9;#height:18px;border:1px solid #556;" onfocus="this.select()" type="text"><br>
+        </div>
+        Pathology name:<br>
+        <div style="position:relative;width:200px;height:25px;border:0;padding:0;margin:0;">
+            <select style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0;padding:0;" onchange="document.getElementById('pathology2Value').value=this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;">
+                <option></option>
+                {% for pathology in unique_pathologies %}
+                <option> {{pathology}} </option>
+                {% endfor %}
+            </select>
+            <input name="pathology2Name" placeholder="add/select a value" id="pathology2Value" value="Any" style="position:absolute;top:0px;left:0px;width:183px;width:180px\9;#width:180px;height:23px; height:21px\9;#height:18px;border:1px solid #556;" onfocus="this.select()" type="text"><br>
+        </div>
+        Variation:<br>
+        <select name="concVar" class="form-control">
+            <option value="Any">Any</option>
+            <option value="higher">+</option>
+            <option value="lower">-</option>
+        </select><br>
+
+        <input type="submit" value="Search">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
